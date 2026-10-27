@@ -1,1 +1,19 @@
-/Pong (Python).md
+# Private notes and context (never committed)
+personal-notes-context/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Build output
+build/
+dist/
+*.spec
+
+# Editor and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
