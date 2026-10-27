@@ -12,6 +12,20 @@ pygame.display.set_caption("My Pong Game!") # The title of the window
 
 clock = pygame.time.Clock() # Controls the game's frame rate
 
+# Create a rectangle with 30x30 pixels with origin at the screen's top left corner.
+ball = pygame.Rect(0, 0, 30, 30) 
+ball.center = (screen_width/2, screen_height/2) # Place the ball in the centre of the screen.
+
+# Create the two paddles
+
+# CPU paddle is centred vertically on the left side of the screen
+cpu = pygame.Rect(0, 0, 20, 100)
+cpu.centery = screen_height/2
+
+# Player paddle is centred vertically on the right side of the screen
+player = pygame.Rect(0, 0, 20, 100)
+player.midright = (screen_width, screen_height/2)
+
 # GAME LOOP
 
 while True:
@@ -21,6 +35,13 @@ while True:
             pygame.quit()
             sys.exit()
 
+    # Draw the game objects
+    pygame.draw.aaline(screen, 'white', (screen_width/2, 0), (screen_width/2, screen_height))
+    pygame.draw.ellipse(screen, 'white', ball)
+    pygame.draw.rect(screen, 'white', cpu)
+    pygame.draw.rect(screen, 'white', player)
+
     # Update the display
     pygame.display.update()
     clock.tick(60) # Limit the frame rate to 60 fps (or else the computer chooses the highest frame rate possible, which is usually too fast for a game)
+
