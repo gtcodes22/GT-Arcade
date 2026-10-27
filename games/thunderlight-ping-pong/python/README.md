@@ -9,7 +9,7 @@ The game runs, both sides score, and the ball resets after each point.
 ## Requirements
 
 - Python 3
-- [Pygame](https://www.pygame.org/)
+- [pygame-ce](https://pyga.me/) (the community edition of Pygame; the code still uses `import pygame`)
 
 ```
 pip install -r requirements.txt
@@ -22,6 +22,8 @@ From this folder:
 ```
 python main.py
 ```
+
+On Windows, if `python` is not found, use the launcher instead: `py main.py`.
 
 ## Build steps
 
