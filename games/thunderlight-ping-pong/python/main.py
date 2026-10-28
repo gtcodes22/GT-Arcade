@@ -16,6 +16,16 @@ def animate_ball():
     if ball.right >= screen_width or ball.left <= 0:
         ball_speed_x *= -1
 
+def animate_player():
+    player.y += player_speed
+    
+    # Keep the player paddle within the screen's boundaries
+    if player.top <= 0:
+        player.top = 0
+    
+    if player.bottom >= screen_height:
+        player.bottom = screen_height
+
 # Initialize Pygame
 pygame.init()
 
@@ -47,6 +57,7 @@ player.midright = (screen_width, screen_height/2)
 
 ball_speed_x = 6
 ball_speed_y = 6
+player_speed = 0
 
 # GAME LOOP
 
@@ -57,9 +68,26 @@ while True:
             pygame.quit()
             sys.exit()
 
+        # move paddle up/down by decreasing/increasing the y coordinate
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                player_speed = -6 
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                player_speed = 6
+        
+        # set the paddle speed to 0 when the key is released
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_UP:
+                player_speed = 0
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_DOWN:
+                player_speed = 0
+
     # Change the positions of the game objects
     animate_ball()
-
+    animate_player()
+    
     # Clear the screen with each frame (fill it with black)
     screen.fill('black')
 
