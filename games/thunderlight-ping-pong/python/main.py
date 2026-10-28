@@ -1,5 +1,22 @@
 import pygame, sys
 
+# FUNCTIONS
+
+def animate_ball():
+    global ball_speed_x, ball_speed_y
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
+    
+    # Collision detection
+    # Change the ball's direction by reversing its speed
+
+    if ball.bottom >= screen_height or ball.top <= 0:
+        ball_speed_y *= -1 
+
+    if ball.right >= screen_width or ball.left <= 0:
+        ball_speed_x *= -1
+
+# Initialize Pygame
 pygame.init()
 
 # DEFINITIONS
@@ -41,8 +58,7 @@ while True:
             sys.exit()
 
     # Change the positions of the game objects
-    ball.x += ball_speed_x
-    ball.y += ball_speed_y
+    animate_ball()
 
     # Clear the screen with each frame (fill it with black)
     screen.fill('black')

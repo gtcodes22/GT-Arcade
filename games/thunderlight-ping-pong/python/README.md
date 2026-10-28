@@ -31,7 +31,7 @@ On Windows, if `python` is not found, use the launcher instead: `py main.py`.
 - [x] 2. Blank screen and game loop
 - [x] 3. Draw the arena, paddles and ball
 - [x] 4. Move the ball around
-- [ ] 5. Check for collisions with all edges
+- [x] 5. Check for collisions with all edges
 - [ ] 6. Move the player's paddle
 - [ ] 7. Move the CPU paddle with simple AI
 - [ ] 8. Check for collisions with the paddles
