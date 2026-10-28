@@ -34,7 +34,7 @@ On Windows, if `python` is not found, use the launcher instead: `py main.py`.
 - [x] 5. Check for collisions with all edges
 - [x] 6. Move the player's paddle
 - [x] 7. Move the CPU paddle with simple AI
-- [ ] 8. Check for collisions with the paddles
+- [x] 8. Check for collisions with the paddles
 - [ ] 9. Add scoring (and reset the ball)
 
 ## Ideas after the tutorial

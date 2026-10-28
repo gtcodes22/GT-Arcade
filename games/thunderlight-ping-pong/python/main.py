@@ -14,6 +14,10 @@ def animate_ball():
     if ball.right >= screen_width or ball.left <= 0:
         ball_speed_x *= -1
 
+    # Check for collision with the paddles
+    if ball.colliderect(player) or ball.colliderect(cpu):
+        ball_speed_x *= -1
+
 def animate_player():
     player.y += player_speed
     
