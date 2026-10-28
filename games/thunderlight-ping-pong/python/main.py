@@ -9,10 +9,8 @@ def animate_ball():
     
     # Collision detection
     # Change the ball's direction by reversing its speed
-
     if ball.bottom >= screen_height or ball.top <= 0:
         ball_speed_y *= -1 
-
     if ball.right >= screen_width or ball.left <= 0:
         ball_speed_x *= -1
 
@@ -22,9 +20,24 @@ def animate_player():
     # Keep the player paddle within the screen's boundaries
     if player.top <= 0:
         player.top = 0
-    
     if player.bottom >= screen_height:
         player.bottom = screen_height
+
+def animate_cpu():
+    global cpu_speed
+    cpu.y += cpu_speed
+
+    # Make computer paddle follow the centre of the ball
+    if ball.centery <= cpu.centery:
+        cpu_speed = -6
+    if ball.centery >= cpu.centery:
+        cpu_speed = 6
+
+    # Keep the computer paddle within the screen's boundaries
+    if cpu.top <= 0:
+        cpu.top = 0
+    if cpu.bottom >= screen_height:
+        cpu.bottom = screen_height
 
 # Initialize Pygame
 pygame.init()
@@ -58,6 +71,7 @@ player.midright = (screen_width, screen_height/2)
 ball_speed_x = 6
 ball_speed_y = 6
 player_speed = 0
+cpu_speed = 6
 
 # GAME LOOP
 
@@ -87,6 +101,7 @@ while True:
     # Change the positions of the game objects
     animate_ball()
     animate_player()
+    animate_cpu()
     
     # Clear the screen with each frame (fill it with black)
     screen.fill('black')
