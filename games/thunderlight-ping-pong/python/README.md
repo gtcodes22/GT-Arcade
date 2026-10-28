@@ -35,10 +35,12 @@ On Windows, if `python` is not found, use the launcher instead: `py main.py`.
 - [x] 6. Move the player's paddle
 - [x] 7. Move the CPU paddle with simple AI
 - [x] 8. Check for collisions with the paddles
-- [ ] 9. Add scoring (and reset the ball)
+- [x] 9. Add scoring (and reset the ball)
 
 ## Ideas after the tutorial
 
 - Make the CPU beatable (lower or randomised speed)
 - Add sound and a win/restart screen
 - Difficulty levels for the CPU paddle
+- Custom start/pause screen, loading screen, and general GUI improvements
+- A PID-controlled CPU paddle
