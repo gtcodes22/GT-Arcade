@@ -1,15 +1,88 @@
 import pygame, sys, random
 
+pygame.init()
+
+# ----------
+# CONSTANTS
+# ----------
+
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 800
+
+# Cap the frame rate so the game speed doesn't depend on the computer
+FPS = 60
+
+PLAYER_NAME = "Player"
+CPU_NAME = "CPU"
+CPU_LABEL_X = SCREEN_WIDTH/4
+PLAYER_LABEL_X = 3 * SCREEN_WIDTH/4
+LABEL_Y_OFFSET = 5
+
+PADDLE_WIDTH = 20
+PADDLE_HEIGHT = 100
+
+BALL_WIDTH = 30
+BALL_HEIGHT = 30
+
+# The ball spawns from a random height near the top of the screen
+BALL_MIN_POSITION_Y, BALL_MAX_POSITION_Y = 10, 100
+
+CPU_MAX_SPEED = 4  # 3 was too easy; 4 feels balanced
+PLAYER_MAX_SPEED = 6
+
+# ----------
+# DEFINITIONS
+# ----------
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("My Pong Game!")
+
+clock = pygame.time.Clock()
+
+# Text: fonts, and the labels that never change
+name_font = pygame.font.Font(None, 50)
+score_font = pygame.font.Font(None, 100)
+
+cpu_name_surface = name_font.render(CPU_NAME, True, "white")
+player_name_surface = name_font.render(PLAYER_NAME, True, "white")
+
+cpu_name_rect = cpu_name_surface.get_rect(midtop=(CPU_LABEL_X, LABEL_Y_OFFSET))
+player_name_rect = player_name_surface.get_rect(midtop=(PLAYER_LABEL_X, LABEL_Y_OFFSET))
+
+# CPU paddle: left edge, vertically centred
+cpu = pygame.Rect(0, 0, PADDLE_WIDTH, PADDLE_HEIGHT)
+cpu.centery = SCREEN_HEIGHT/2
+
+# Player paddle: right edge, vertically centred
+player = pygame.Rect(0, 0, PADDLE_WIDTH, PADDLE_HEIGHT)
+player.midright = (SCREEN_WIDTH, SCREEN_HEIGHT/2)
+
+ball = pygame.Rect(0, 0, BALL_WIDTH, BALL_HEIGHT)
+ball.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
+# ----------
+# VARIABLES
+# ----------
+
+player_speed = 0
+cpu_speed = 0
+ball_speed_x = 6
+ball_speed_y = 6
+
+cpu_points, player_points = 0, 0
+
+# ----------
 # FUNCTIONS
+# ----------
 
 def reset_ball():
     global ball_speed_x, ball_speed_y
 
-    # Reset the ball to the centre of the screen
-    ball.x = screen_width/2 - 10
-    ball.y = random.randint(10, 100) # Randomly choose a y coordinate for the ball's position between 10 and 100 pixels from the top of the screen
+    # Serve from the middle of the screen at a random height
+    ball.x = SCREEN_WIDTH/2 - BALL_WIDTH/2
+    ball.y = random.randint(BALL_MIN_POSITION_Y, BALL_MAX_POSITION_Y)
 
-    # Randomly choose the direction of the ball's movement
+    # Random direction on each axis
     ball_speed_x *= random.choice([-1, 1])
     ball_speed_y *= random.choice([-1, 1])
 
@@ -19,7 +92,7 @@ def point_won(winner):
     if winner == "cpu":
         cpu_points += 1
     if winner == "player":
-        player_points += 1 
+        player_points += 1
 
     reset_ball()
 
@@ -27,137 +100,94 @@ def animate_ball():
     global ball_speed_x, ball_speed_y
     ball.x += ball_speed_x
     ball.y += ball_speed_y
-    
-    # Collision detection
 
-    # Change the ball's direction by reversing its speed
-    if ball.bottom >= screen_height or ball.top <= 0:
+    # Bounce off the top and bottom edges
+    if ball.bottom >= SCREEN_HEIGHT or ball.top <= 0:
         ball_speed_y *= -1
 
-    # Check for collision with the paddles
+    # Bounce off the paddles
     if ball.colliderect(player) or ball.colliderect(cpu):
         ball_speed_x *= -1
 
-    # Check if the ball has gone past the paddles and award points 
-    if ball.right >= screen_width:
-        point_won("cpu") 
-    
+    # Past a paddle: the other side scores
+    if ball.right >= SCREEN_WIDTH:
+        point_won("cpu")
+
     if ball.left <= 0:
-        point_won("player") 
+        point_won("player")
+
+def keep_paddle_on_screen(paddle_rect):
+    if paddle_rect.top <= 0:
+        paddle_rect.top = 0
+    if paddle_rect.bottom >= SCREEN_HEIGHT:
+        paddle_rect.bottom = SCREEN_HEIGHT
 
 def animate_player():
     player.y += player_speed
-    
-    # Keep the player paddle within the screen's boundaries
-    if player.top <= 0:
-        player.top = 0
-    if player.bottom >= screen_height:
-        player.bottom = screen_height
+    keep_paddle_on_screen(player)
 
 def animate_cpu():
     global cpu_speed
     cpu.y += cpu_speed
 
-    # Make computer paddle follow the centre of the ball
+    keep_paddle_on_screen(cpu)
+
+    # Make computer paddle follow the ball's vertical centre
     if ball.centery <= cpu.centery:
-        cpu_speed = -4
+        cpu_speed = -CPU_MAX_SPEED
     if ball.centery >= cpu.centery:
-        cpu_speed = 4
+        cpu_speed = CPU_MAX_SPEED
 
-    # Keep the computer paddle within the screen's boundaries
-    if cpu.top <= 0:
-        cpu.top = 0
-    if cpu.bottom >= screen_height:
-        cpu.bottom = screen_height
-
-# Initialize Pygame
-pygame.init()
-
-# DEFINITIONS
-
-screen_width = 1280
-screen_height = 800
-
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("My Pong Game!") # The title of the window
-
-clock = pygame.time.Clock() # Controls the game's frame rate
-
-# Create a rectangle with 30x30 pixels with origin at the screen's top left corner.
-ball = pygame.Rect(0, 0, 30, 30) 
-ball.center = (screen_width/2, screen_height/2) # Place the ball in the centre of the screen.
-
-# Create the two paddles
-
-# CPU paddle is centred vertically on the left side of the screen
-cpu = pygame.Rect(0, 0, 20, 100)
-cpu.centery = screen_height/2
-
-# Player paddle is centred vertically on the right side of the screen
-player = pygame.Rect(0, 0, 20, 100)
-player.midright = (screen_width, screen_height/2)
-
-# Animation
-
-ball_speed_x = 6
-ball_speed_y = 6
-player_speed = 0
-cpu_speed = 4
-
-# Scoring
-cpu_points, player_points = 0, 0
-
-# Display text
-score_font = pygame.font.Font(None, 100) # Use default font, size 100
-
+# ----------
 # GAME LOOP
+# ----------
 
 while True:
-    # Check for events (like closing the window)
+    # Check for events (like closing the window, pressing keys)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-        # move paddle up/down by decreasing/increasing the y coordinate
+        # In pygame y grows downward, so up is negative
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                player_speed = -6 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                player_speed = 6
-        
-        # set the paddle speed to 0 when the key is released
+                player_speed = -PLAYER_MAX_SPEED
+            elif event.key == pygame.K_DOWN:
+                player_speed = PLAYER_MAX_SPEED
+
+        # Stop moving when the key is released
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
-                player_speed = 0
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 player_speed = 0
 
     # Change the positions of the game objects
     animate_ball()
     animate_player()
     animate_cpu()
-    
-    # Clear the screen with each frame (fill it with black)
+
+    # Clear the screen with each frame
     screen.fill('black')
 
-    # Display the score
+    # Build the score images, then draw the names and scores
     cpu_score_surface = score_font.render(str(cpu_points), True, "white")
     player_score_surface = score_font.render(str(player_points), True, "white")
 
-    # Position the score surfaces on the screen
-    screen.blit(cpu_score_surface, (screen_width/4, 20))
-    screen.blit(player_score_surface, (3 * screen_width/4, 20))
+    cpu_score_rect = cpu_score_surface.get_rect(midtop=(CPU_LABEL_X, cpu_name_rect.bottom))
+    player_score_rect = player_score_surface.get_rect(midtop=(PLAYER_LABEL_X, player_name_rect.bottom))
 
-    # Draw the game objects
-    pygame.draw.aaline(screen, 'white', (screen_width/2, 0), (screen_width/2, screen_height))
+    screen.blit(cpu_name_surface, cpu_name_rect)
+    screen.blit(cpu_score_surface, cpu_score_rect)
+    screen.blit(player_name_surface, player_name_rect)
+    screen.blit(player_score_surface, player_score_rect)
+
+    # Draw game objects. Order matters: later items appear on top
+    pygame.draw.aaline(screen, 'white', (SCREEN_WIDTH/2, 0), (SCREEN_WIDTH/2, SCREEN_HEIGHT))
     pygame.draw.ellipse(screen, 'white', ball)
     pygame.draw.rect(screen, 'white', cpu)
     pygame.draw.rect(screen, 'white', player)
 
-    # Update the display
     pygame.display.update()
-    clock.tick(60) # Limit the frame rate to 60 fps (or else the computer chooses the highest frame rate possible, which is usually too fast for a game)
+
+    clock.tick(FPS)
 

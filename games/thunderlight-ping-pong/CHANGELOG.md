@@ -2,6 +2,16 @@
 
 ## Python
 
+### Unreleased (0.2.0 in progress)
+
+#### Added
+- "CPU" and "Player" name labels above the scores
+
+#### Changed
+- CPU paddle speed lowered to 4
+- Scores are centred under their labels
+- Game values (screen, paddle, ball and speed settings) are named constants, and comments explain the why instead of the what
+
 ### 0.1.0 (2026-10-28)
 Tutorial baseline: all 9 steps of the Programming With Nick Pong tutorial.
 
