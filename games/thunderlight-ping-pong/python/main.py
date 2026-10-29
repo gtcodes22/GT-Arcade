@@ -35,7 +35,7 @@ PLAYER_MAX_SPEED = 6
 # ----------
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("My Pong Game!")
+pygame.display.set_caption("Thunderlight Ping Pong")
 
 clock = pygame.time.Clock()
 
