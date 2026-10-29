@@ -39,7 +39,7 @@ On Windows, if `python` is not found, use the launcher instead: `py main.py`.
 
 ## Planned
 
-- 0.2.0: a fairer CPU (speed 4, better serves after a point) plus paddle collision and key-handling fixes
+- 0.3.0: better serves after a point, plus paddle collision and key-handling fixes
 - Difficulty levels for the CPU paddle
 - A PID-controlled CPU paddle
 - Sound effects and volume control
