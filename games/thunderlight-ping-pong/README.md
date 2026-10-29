@@ -6,7 +6,7 @@ A Pong game. The player faces a CPU paddle, both sides score, and the ball reset
 
 | Version | Folder | Status |
 |---|---|---|
-| Python + Pygame | [python/](python/) | In progress |
+| Python + Pygame | [python/](python/) | Playable (0.2.0) |
 | C++ + Raylib | `cpp/` | Planned |
 
 ## Planned twist

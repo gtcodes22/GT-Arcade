@@ -4,7 +4,7 @@ Public titles are original names. Each game is built following a tutorial and th
 
 | Public title | Classic | Languages | Status | Twist (proposed) |
 |---|---|---|---|---|
-| Thunderlight Ping Pong | Pong | Python, then C++ | Python in progress | CPU paddle with difficulty levels (PID control) |
+| Thunderlight Ping Pong | Pong | Python, then C++ | Python playable (0.2.0) | CPU paddle with difficulty levels (PID control) |
 | Snake | Snake | Python, then C++ | Planned | Pathfinding autoplay mode |
 | Tetris | Tetris | Python, then C++ | Planned | Ghost piece and hold slot |
 | Space Invaders | Space Invaders | Python, then C++ | Planned | Boss wave or wave editor |

@@ -22,6 +22,21 @@ flowchart TB
 | Each game | Gameplay plus a minimal pause and game-over state; runs inside a frame |
 | Message contract | The only link between hub and game. See [message-contract.md](message-contract.md) |
 
+## Settings
+
+Global settings (such as volume and mute) belong to the hub. Game-specific settings (such as controls and difficulty) belong to the game. Each game keeps a minimal fallback so it also runs on its own, outside the hub.
+
+## Games that can't run in the browser
+
+Some games (for example Unity, Godot or Unreal builds) can't run in a frame, so they live in their own repositories. The hub lists games from a small manifest, so a card can be either type:
+
+| Field | Meaning |
+|---|---|
+| `type` | `web` (runs in the hub) or `external` (links elsewhere) |
+| `title`, `description` | What the card shows |
+| `link` | For `web`, the game's path in this repo. For `external`, a store or project page (Steam, itch.io or the repo) |
+| `platforms`, `status` | Where it runs, and whether it's playable or in progress |
+
 ## Platforms
 
 The web is the main target: no install, one click. Native installs for Windows, Linux and Android can follow later. iOS and macOS are covered through a PWA.

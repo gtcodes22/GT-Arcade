@@ -2,13 +2,13 @@
 
 One multi-game app that gathers classic games, built by [Gideon Tladi](https://github.com/gtcodes22) in Python, C++ and JavaScript, behind one modern interface. The aim is learning and practice first, then a public record of growth.
 
-> Status: early. The first game, Thunderlight Ping Pong (Python), is in progress. The hub comes later.
+> Status: early. The first game, Thunderlight Ping Pong (Python), is playable (0.2.0) and still being improved. The hub comes later.
 
 ## Games
 
 | Game | Classic | Python | C++ | JavaScript |
 |---|---|---|---|---|
-| [Thunderlight Ping Pong](games/thunderlight-ping-pong/) | Pong | In progress | Planned | - |
+| [Thunderlight Ping Pong](games/thunderlight-ping-pong/) | Pong | Playable (0.2.0) | Planned | - |
 
 More games are planned. See the [roster](docs/roster.md) and the [roadmap](docs/roadmap.md).
 

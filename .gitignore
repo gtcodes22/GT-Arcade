@@ -1,6 +1,11 @@
 # Private notes and context (never committed)
 personal-notes-context/
 
+# Secrets (never committed; commit a .env.example instead)
+.env
+.env.*
+!.env.example
+
 # Python
 __pycache__/
 *.py[cod]
