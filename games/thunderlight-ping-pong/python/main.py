@@ -60,9 +60,9 @@ def animate_cpu():
 
     # Make computer paddle follow the centre of the ball
     if ball.centery <= cpu.centery:
-        cpu_speed = -6
+        cpu_speed = -4
     if ball.centery >= cpu.centery:
-        cpu_speed = 6
+        cpu_speed = 4
 
     # Keep the computer paddle within the screen's boundaries
     if cpu.top <= 0:
@@ -102,7 +102,7 @@ player.midright = (screen_width, screen_height/2)
 ball_speed_x = 6
 ball_speed_y = 6
 player_speed = 0
-cpu_speed = 6
+cpu_speed = 4
 
 # Scoring
 cpu_points, player_points = 0, 0
