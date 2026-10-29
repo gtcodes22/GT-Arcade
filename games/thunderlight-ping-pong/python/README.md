@@ -37,10 +37,10 @@ On Windows, if `python` is not found, use the launcher instead: `py main.py`.
 - [x] 8. Check for collisions with the paddles
 - [x] 9. Add scoring (and reset the ball)
 
-## Ideas after the tutorial
+## Planned
 
-- Make the CPU beatable (lower or randomised speed)
-- Add sound and a win/restart screen
+- 0.2.0: a fairer CPU (speed 4, better serves after a point) plus paddle collision and key-handling fixes
 - Difficulty levels for the CPU paddle
-- Custom start/pause screen, loading screen, and general GUI improvements
 - A PID-controlled CPU paddle
+- Sound effects and volume control
+- Start/pause screen and win/restart screen
